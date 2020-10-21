@@ -1,0 +1,179 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@700;800&display=swap");
+
+// Variables CSS para la tipografía
+:root {
+  // Familias de fuentes
+  --headingFont: "Raleway", sans-serif;
+  --bodyFont: "Open Sans", sans-serif;
+
+  // Los tamaños de las fuentes
+  --biggerFontSize: #{rem(28px)};
+  --h1FontSize: #{rem(24px)};
+  --h2FontSize: #{rem(20px)};
+  --h3FontSize: #{rem(16px)};
+  --normalFontSize: #{rem(15px)};
+  --smallFontSize: #{rem(13px)};
+  --smallerFontSize: #{rem(12px)};
+  --headingLineHeight: 1.3;
+  --bodyLineHeight: 1.6;
+
+  // Los tamaños de las fuentes desde el breakpoint lg (64em ~ 1024px)
+  @include from(lg) {
+    --biggerFontSize: #{rem(36px)};
+    --h1FontSize: #{rem(32px)};
+    --h2FontSize: #{rem(24px)};
+    --h3FontSize: #{rem(20px)};
+    --normalFontSize: #{rem(16px)};
+    --smallFontSize: #{rem(14px)};
+    --smallerFontSize: #{rem(13px)};
+  }
+}
+
+// Los tamaños de las fuentes
+$fontSizes: (
+  bigger: var(--biggerFontSize),
+  title1: var(--h1FontSize),
+  title2: var(--h2FontSize),
+  title3: var(--h3FontSize),
+  normal: var(--normalFontSize),
+  small: var(--smallFontSize),
+  smaller: var(--smallerFontSize),
+);
+
+// Obtener el tamaño de la fuente del mapa
+@function fontSize($size) {
+  @if map-has-key($fontSizes, $size) {
+    @return map-get($fontSizes, $size);
+  } @else {
+    @error '$size is not valid, valid values are title1, title2, title3, normal, small, smaller';
+  }
+}
+
+// Mixins para los estilos de los encabezados
+@mixin heading-font($extrabold: false) {
+  line-height: var(--headingLineHeight);
+  font-family: var(--headingFont);
+  font-weight: if($extrabold, 800, 700);
+  letter-spacing: 0.015em;
+  color: var(--textPrimary);
+}
+
+// Mixins para los estilos del contenido
+@mixin body-font {
+  font-family: var(--bodyFont);
+  font-weight: 400;
+  line-height: var(--bodyLineHeight);
+}
+
+// Asignar estilos de los encabezados
+.biggerTitle {
+  @include heading-font(true);
+  font-size: var(--biggerFontSize);
+}
+
+h1,
+.t1 {
+  @include heading-font(true);
+  font-size: var(--h1FontSize);
+}
+
+h2,
+.t2 {
+  @include heading-font(true);
+  font-size: var(--h2FontSize);
+}
+
+h3,
+.t3 {
+  @include heading-font;
+  font-size: var(--h3FontSize);
+}
+
+h4,
+.t4 {
+  @include heading-font;
+  font-size: var(--normalFontSize);
+}
+
+h5,
+.t5 {
+  @include heading-font;
+  font-size: var(--smallFontSize);
+}
+
+h6,
+.t6 {
+  @include heading-font;
+  font-size: var(--smallerFontSize);
+}
+
+// Asignar estilos del contenido
+.biggest {
+  @include body-font;
+  font-size: var(--h1FontSize);
+}
+
+.bigger {
+  @include body-font;
+  font-size: var(--h2FontSize);
+}
+
+.big {
+  @include body-font;
+  font-size: var(--h3FontSize);
+}
+
+.normal {
+  @include body-font;
+  font-size: var(--normalFontSize);
+}
+
+.small {
+  @include body-font;
+  font-size: var(--smallFontSize);
+}
+
+.smaller {
+  @include body-font;
+  font-size: var(--smallerFontSize);
+}
+
+// Clases para font-family
+.bodyFont {
+  font-family: var(--bodyFont);
+}
+
+.headingFont {
+  font-family: var(--headingFont);
+}
+
+// Estilos de texto por defecto
+body {
+  @extend .normal;
+  color: var(--textSecondary);
+}
+
+// Blockquote
+blockquote {
+  @extend .big;
+  font-style: italic;
+  letter-spacing: 0.01em;
+  margin-left: 2rem;
+  position: relative;
+  opacity: 0.9;
+
+  @include from(lg) {
+    margin-left: 4rem;
+  }
+
+  &::before {
+    content: "\201C";
+    font-family: Georgia, serif;
+    font-size: 3em;
+    position: absolute;
+    top: 0.5em;
+    left: -0.6em;
+    line-height: 0;
+    letter-spacing: -0.5em;
+  }
+}

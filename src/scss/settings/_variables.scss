@@ -1,0 +1,28 @@
+$l-unit: 0.5rem !default;
+
+// Breakpoints
+$breakpoints: (
+  s: 0,
+  m: 640px,
+  lg: 1024px,
+  xl: 1440px,
+) !default;
+
+$sizes: map-keys($breakpoints);
+
+// z-index
+:root {
+  --zBack: -10;
+  --zNormal: 1;
+  --zTooltip: 10;
+  --zFixed: 100;
+  --zModal: 1000;
+}
+
+$z-indexs: (
+  zBack: var(--zBack),
+  zNormal: var(--zNormal),
+  zTooltip: var(--zTooltip),
+  zFixed: var(--zFixed),
+  zModal: var(--zModal),
+);

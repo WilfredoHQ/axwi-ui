@@ -1,0 +1,111 @@
+@include bp-prefix {
+  $border: 1px solid var(--divider);
+
+  @each $index, $value in $z-indexs {
+    &#{$index} {
+      z-index: $value;
+    }
+  }
+
+  // Bordes
+  &border {
+    border: $border;
+
+    &None {
+      border: none;
+    }
+
+    @each $direction in top right bottom left {
+      &#{str-capitalize($direction)} {
+        border-#{$direction}: $border;
+      }
+
+      &#{str-capitalize($direction)}None {
+        border-#{$direction}: none;
+      }
+    }
+  }
+
+  // Border radius
+  &roundedFull {
+    border-radius: 9999px;
+  }
+  @include l-unit("rounded", "border-radius");
+  @each $corner in top-left top-right bottom-right bottom-left {
+    @include l-unit(
+      "#{str-initials($corner)}Rounded",
+      "border-#{$corner}-radius"
+    );
+  }
+
+  // Ratios
+  @each $x in 1 2 3 4 {
+    @each $y in 1 2 3 4 {
+      &ratio#{$x}-#{$y} {
+        @include ratio($x, $y);
+      }
+    }
+  }
+
+  // 16,9
+  &ratio16-9 {
+    @include ratio(16, 9);
+  }
+
+  // 9,16
+  &ratio9-16 {
+    @include ratio(9, 16);
+  }
+
+  // 21,9
+  &ratio21-9 {
+    @include ratio(21, 9);
+  }
+
+  // Opacidad
+  @for $i from 1 through 10 {
+    &opacity#{$i} {
+      opacity: $i * 0.1;
+    }
+  }
+
+  // Sombras
+  &shadow {
+    box-shadow: 0 2px 4px 0 var(--shadowColor);
+
+    &None {
+      box-shadow: none;
+    }
+  }
+
+  // Select
+  &selectNone {
+    user-select: none;
+  }
+
+  // Outline
+  &outlineNone {
+    outline: none;
+  }
+
+  // List-style
+  &listNone {
+    list-style: none;
+  }
+
+  // Cursor
+  &cursorPointer {
+    cursor: pointer;
+  }
+
+  // Overflow
+  &overflowHidden {
+    overflow: hidden;
+  }
+
+  @each $transform in uppercase lowercase capitalize {
+    &#{$transform} {
+      text-transform: $transform;
+    }
+  }
+}

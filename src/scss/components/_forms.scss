@@ -1,0 +1,58 @@
+[type="text"],
+[type="email"],
+[type="password"],
+[type="number"],
+[type="date"],
+[type="time"],
+[type="datetime-local"],
+[type="search"],
+[type="tel"],
+[type="url"],
+select,
+textarea {
+  display: block;
+  border: 1px solid var(--divider);
+  background-color: var(--surfaceBackground);
+  width: 100%;
+  line-height: 1.6;
+  font-family: var(--bodyFont); // Fuerza a tomar la fuente por defecto
+  font-size: fontSize(small);
+  color: var(--textSecondary);
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+
+  &::placeholder {
+    color: var(--textDisabled);
+  }
+
+  &:disabled {
+    background-color: var(--divider);
+    border: none;
+    opacity: 0.6;
+    cursor: default;
+  }
+}
+
+option {
+  background-color: var(--surfaceBackground);
+}
+
+textarea {
+  min-height: 6em;
+  max-height: 6em;
+  min-width: 100%;
+  max-width: 100%;
+}
+
+label {
+  display: block;
+  font-size: fontSize(small);
+  margin-bottom: 0.2em;
+  + input::placeholder {
+    display: none;
+  }
+}
+
+[type="submit"] {
+  margin: 0 !important;
+}

@@ -1,0 +1,31 @@
+@mixin scroll {
+  --thumbColor: rgba(255, 255, 255, 0.3);
+  --trackColor: #232526;
+  --scrollSize: 10px;
+  --scrollRadius: calc(var(--scrollSize) / 2);
+  --display: block;
+
+  &::-webkit-scrollbar {
+    display: var(--display);
+    width: var(--scrollSize);
+
+    &-thumb {
+      background: var(--thumbColor);
+      border-radius: var(--scrollRadius);
+    }
+
+    &-track:hover {
+      background: var(--trackColor);
+    }
+  }
+}
+
+body,
+.scroll {
+  @include scroll;
+}
+
+.lightMode {
+  --thumbColor: #bcc0c4;
+  --trackColor: #e5e8eb;
+}

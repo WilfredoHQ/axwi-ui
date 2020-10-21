@@ -1,0 +1,9 @@
+:not(pre) code {
+  font-family: Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace;
+  background: var(--grey300);
+  border: 1px solid var(--grey300);
+  color: var(--secondary600);
+  padding: 0 0.25em;
+  margin: 0 0.1em;
+  word-break: break-all;
+}

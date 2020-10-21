@@ -1,0 +1,86 @@
+@mixin ratio($h, $v) {
+  $width: 100%;
+  width: $width;
+  height: 0;
+  overflow: hidden;
+  padding-bottom: $width * ($v/$h);
+  position: relative;
+}
+
+@mixin l-unit($selector, $property) {
+  @for $i from 0 through 11 {
+    $unit: $l-unit * $i;
+
+    @if $i==0 {
+      $unit: 0;
+    }
+
+    @if $i==11 {
+      $i: "05";
+      $unit: $l-unit * 0.5;
+    }
+
+    &#{$selector}#{$i} {
+      #{$property}: $unit;
+    }
+  }
+}
+
+/// Pasa por cada uno de los puntos de interrupción de las variables predeterminadas y crea los selectores con la estructura breakpoint-name
+/// @param {string|list} $names - lista de nombres que usaremos para nombrar nuestras clases, recorremos una lista por si queremos múltiples selectores con el mismo valor
+/// @param {string}  $property - propiedad CSS
+/// @param {string} $value - valor CSS
+/// @param {string}  $concact - en ocasiones necesitaremos concadenar para crear clases más específicas, por la forma en que funciona el mixin no podemos usar concadenar desde los names
+@mixin bp-prefix($names: null, $property: null, $value: null, $concat: "") {
+  @each $name in $names {
+    @each $size in $sizes {
+      $selector: "#{$concat}.#{$size}-#{$name}";
+
+      @include from($size) {
+        #{$selector} {
+          @if $property and $value {
+            #{$property}: $value;
+          } @else {
+            @content;
+          }
+        }
+      }
+    }
+  }
+}
+
+/// La regla css se ejecuta por encima del breakpoint
+/// @param {breakpoint} $from
+@mixin from($from) {
+  @if is-core-bp($from) {
+    @if $from == s {
+      @content;
+    } @else {
+      @media screen and (min-width: get-bp($from)) {
+        @content;
+      }
+    }
+  } @else if is-valid-bp($from) {
+    @media screen and (min-width: $from) {
+      @content;
+    }
+  }
+}
+
+/// La regla css se ejecuta por debajo del breakpoint
+/// @param {breakpoint} $to
+@mixin to($to) {
+  @if is-core-bp($to) {
+    @if $to == s {
+      @content;
+    } @else {
+      @media screen and (max-width: get-bp($to) - 1px) {
+        @content;
+      }
+    }
+  } @else if is-valid-bp($to) {
+    @media screen and (max-width: to-px($to) - 1px) {
+      @content;
+    }
+  }
+}

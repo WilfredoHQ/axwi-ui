@@ -1,0 +1,30 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: var(--webWash);
+}
+
+a {
+  color: var(--blueLink);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+strong {
+  font-weight: 700;
+}
+
+hr {
+  --color: var(--divider);
+  border: 1px solid var(--color);
+}

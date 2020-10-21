@@ -1,0 +1,40 @@
+@function color-yiq($color) {
+  $r: red($color);
+  $g: green($color);
+  $b: blue($color);
+
+  $yiq: (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
+
+  @if ($yiq >= 150) {
+    @return #111;
+  } @else {
+    @return #fff;
+  }
+}
+
+/// Transforma un valor en pixeles a rem
+/// @param {number} $px - el valor en pixeles que se desea convertir
+@function rem($px) {
+  @if type_of($px) == number and unit($px) == "px" {
+    @return ($px / 16px) * 1rem;
+  }
+}
+
+/// Obtiene un breakpoint del core
+/// @param {breakpoint} $bp
+@function get-bp($bp) {
+  @return map-get($breakpoints, $bp);
+}
+
+/// Capitaliza un string
+/// @param {string} $string
+@function str-capitalize($string) {
+  @return to-upper-case(str-slice($string, 1, 1)) + str-slice($string, 2);
+}
+
+/// Extrae las primeras letras de un string escrito en kebab-case ejemplo: hola-mundo => hm
+/// @param {string} $string
+@function str-initials($string) {
+  @return str-slice($string, 1, 1) +
+    str-slice($string, str-index($string, "-") + 1, str-index($string, "-") + 1);
+}
